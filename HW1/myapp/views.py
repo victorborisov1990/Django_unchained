@@ -1,5 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 # Создайте пару представлений в вашем первом приложении:
@@ -9,6 +12,7 @@ from django.http import HttpResponse
 # Django-сайте и о вас. Сохраняйте в логи данные о посещении страниц.
 
 def start(request):
+    logger.info('opened main paige')
     return HttpResponse('''
             <!DOCTYPE html>
             <html lang="en">
@@ -36,6 +40,7 @@ def start(request):
 
 
 def about(request):
+    logger.info('visited my bio')
     return HttpResponse('''
         <!DOCTYPE html>
         <html lang="en">
