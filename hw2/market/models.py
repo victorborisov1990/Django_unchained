@@ -50,10 +50,10 @@ class OrdersModel(models.Model):
 	— дата оформления заказа
 	"""
 	client = models.ForeignKey(ClientsModel, on_delete=models.CASCADE)
-	product = models.ManyToManyField(Product)
-	amount = models.FloatField()
+	product = models.ManyToManyField(ProductsModel)
+	amount = models.FloatField(default=0)
 	ordered_date = models.DateTimeField(auto_now_add=True)
 
 
 	def __str__(self):
-		return f'client: {self.client}, product: {self.product}'
+		return f'Заказ {self.pk}: client: {self.client}, ordered_date: {self.ordered_date}'
