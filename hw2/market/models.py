@@ -32,8 +32,8 @@ class ProductsModel(models.Model):
 	"""
 	name = models.CharField(max_length=100)
 	description = models.TextField()
-	price = models.FloatField()
-	quantity = models.IntegerField()
+	price = models.DecimalField(default=999999.99, max_digits=8, decimal_places=2)
+	quantity = models.PositiveSmallIntegerField(default=0)
 	added_date = models.DateTimeField(auto_now_add=True)
 
 

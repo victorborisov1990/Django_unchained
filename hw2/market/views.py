@@ -1,3 +1,35 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import ClientsModel, ProductsModel, OrdersModel
+from datetime import datetime
 
-# Create your views here.
+def get_clients_products(request, client_id):
+    """
+    Создайте шаблон, который выводит список заказанных клиентом товаров из всех его заказов с сортировкой по времени:
+    — за последние 7 дней (неделю)
+    — за последние 30 дней (месяц)
+    — за последние 365 дней (год)
+    Товары в списке не должны повторятся.
+    """
+    print(client_id)
+    client = get_object_or_404(ClientsModel, pk=client_id)
+    orders = OrdersModel.objects.filter(client=client_id)
+    product_list_7 = []
+    product_list_30 = []
+    product_list_365 = []
+    for order in orders:
+        delta = datetime.now().date() - order.ordered_date.date()
+        for product in order.product.all():
+            if delta.days <= 7:
+                product_list_7.append(product)
+            if delta.days <= 30:
+                product_list_30.append(product)
+            if delta.days <= 365:
+                product_list_365.append(product)
+    product_list_7 = set(product_list_7)
+    product_list_30 = set(product_list_30)
+    product_list_365 = set(product_list_365)
+    context = {"client": client,
+               "product_list_7": product_list_7,
+               "product_list_30": product_list_30,
+               "product_list_365": product_list_365}
+    return render(request, 'market/clients_products.html', context)
