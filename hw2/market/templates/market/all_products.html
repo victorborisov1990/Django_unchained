@@ -6,11 +6,10 @@
 
 <div class="block">
     <h3>Продукты на складе:</h3>
-    <p>{{ MEDIA_URL }}</p>
 
     <ol>
     {% for product in products %}
-        <li> {{ product.name }}</li>
+        <li> {{ product.name }} , {{ product.price }} руб. / ед. </li>
         {% if product.image != '' %}
             <img class="img" src="{{ MEDIA_URL }}{{ product.image.url }}" height="100" alt="Product img">
         {% endif %}
