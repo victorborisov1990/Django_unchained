@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+<h2 class="title"> {{ title }} </h2>
+
+<div class="block">
+    <h3>Продукты на складе:</h3>
+    <p>{{ MEDIA_URL }}</p>
+
+    <ol>
+    {% for product in products %}
+        <li> {{ product.name }}</li>
+        {% if product.image != '' %}
+            <img class="img" src="{{ MEDIA_URL }}{{ product.image.url }}" height="100" alt="Product img">
+        {% endif %}
+    {% endfor %}
+    </ol>
+
+</div>
+
+
+{% endblock %}

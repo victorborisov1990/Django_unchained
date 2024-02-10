@@ -35,10 +35,11 @@ class ProductsModel(models.Model):
 	price = models.DecimalField(default=999999.99, max_digits=8, decimal_places=2)
 	quantity = models.PositiveSmallIntegerField(default=0)
 	added_date = models.DateTimeField(auto_now_add=True)
-
+	image = models.ImageField(upload_to='products', null=True, blank=True)
+	# default = 'no_image.png'
 
 	def __str__(self):
-		return f'{self.name}: {self.quantity} шт по {self.price:.2f} руб.'
+		return f'{self.name}'
 
 
 class OrdersModel(models.Model):
@@ -57,3 +58,7 @@ class OrdersModel(models.Model):
 
 	def __str__(self):
 		return f'Заказ {self.pk}: client: {self.client}, ordered_date: {self.ordered_date}'
+
+
+class ProductList(models.Model):
+	product = models.ForeignKey(ProductsModel, on_delete=models.CASCADE)
